@@ -9,6 +9,7 @@ class Dictionary:
             index = hash(key) % self.size
             if self.data[index] is None:
                 self.data[index] = (hash(key), key, value)
+                self.load += 1
             elif (self.data[index][0] == hash(key)
                   and self.data[index][1] == key):
                 self.data[index] = (hash(key), key, value)
@@ -21,8 +22,8 @@ class Dictionary:
                         break
                     if self.data[i] is None:
                         self.data[i] = (hash(key), key, value)
+                        self.load += 1
                         break
-            self.load += 1
         else:
             self.size *= 2
             data_list = self.data.copy()
@@ -31,7 +32,6 @@ class Dictionary:
                 if item is not None:
                     self.__setitem__(item[1], item[2])
             self.__setitem__(key, value)
-            self.load += 1
 
     def __getitem__(self, key: any) -> any:
         index = hash(key) % self.size
@@ -59,7 +59,7 @@ class Dictionary:
                     and self.data[i][0] == hash(key)
                     and self.data[i][1] == key):
                 self.data[i] = None
-                break
+                return None
         raise KeyError(f"{key} not found")
 
     def get(self) -> list:

@@ -19,11 +19,11 @@ class Dictionary:
                             and self.data[i][0] == hash(key)
                             and self.data[i][1] == key):
                         self.data[i] = (hash(key), key, value)
-                        break
+                        return None
                     if self.data[i] is None:
                         self.data[i] = (hash(key), key, value)
                         self.load += 1
-                        break
+                        return None
         else:
             self.size *= 2
             data_list = self.data.copy()
